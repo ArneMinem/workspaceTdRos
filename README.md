@@ -1,93 +1,319 @@
-# workspaceTdRos
+# TD1 ROS
 
+## 3 Découverte des topics et services
 
+### 3.1 Les interfaces (topics et services)
 
-## Getting started
+#### Question 1.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Terminal 1 :
+```
+arne@arne-G3-3500:~$ cd workspacetdros/
+arne@arne-G3-3500:~/workspacetdros$ ros2 topic pub -r 1 /boat_name std_msgs/String "data: hello"
+publisher: beginning loop
+publishing #1: std_msgs.msg.String(data='hello')
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+publishing #2: std_msgs.msg.String(data='hello')
 
-## Add your files
+publishing #3: std_msgs.msg.String(data='hello')
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+publishing #4: std_msgs.msg.String(data='hello')
+
+publishing #5: std_msgs.msg.String(data='hello')
+
+publishing #6: std_msgs.msg.String(data='hello')
+
+publishing #7: std_msgs.msg.String(data='hello')
+
+publishing #8: std_msgs.msg.String(data='hello')
+
+publishing #9: std_msgs.msg.String(data='hello')
+```
+Terminal 2 :
+```
+arne@arne-G3-3500:~$ cd workspacetdros/
+arne@arne-G3-3500:~/workspacetdros$ ros2 topic echo /boat_name
+data: hello
+---
+data: hello
+---
+data: hello
+---
+data: hello
+---
+data: hello
+---
+```
+
+Pour changer le nom du topic, sa fréquence et son message on fait :
+```ros2 topic pub -r 2 /new_topic_name std_msgs/String "data: new_message_text"```
+- 2 pour 2Hz
+- /new_topic_name pour le nom du topic
+- std_msgs/String est le message_type
+- "data: new_message_text" est le message envoyé
+
+#### Question 2.
+```
+arne@arne-G3-3500:~/workspacetdrosros2 interface show std_msgs/msg/Stringng
+# This was originally provided as an example message.
+# It is deprecated as of Foxy
+# It is recommended to create your own semantically meaningful message.
+# However if you would like to continue using this please use the equivalent in example_msgs.
+
+string data
+arne@arne-G3-3500:~/workspacetdros$ ros2 interface show std_msgs/msg/Float64
+# This was originally provided as an example message.
+# It is deprecated as of Foxy
+# It is recommended to create your own semantically meaningful message.
+# However if you would like to continue using this please use the equivalent in example_msgs.
+
+float64 data
+arne@arne-G3-3500:~/workspacetdros$ ros2 interface show sensor_msgs/msg/Imu
+# This is a message to hold data from an IMU (Inertial Measurement Unit)
+#
+# Accelerations should be in m/s^2 (not in g's), and rotational velocity should be in rad/sec
+#
+# If the covariance of the measurement is known, it should be filled in (if all you know is the
+# variance of each measurement, e.g. from the datasheet, just put those along the diagonal)
+# A covariance matrix of all zeros will be interpreted as "covariance unknown", and to use the
+# data a covariance will have to be assumed or gotten from some other source
+#
+# If you have no estimate for one of the data elements (e.g. your IMU doesn't produce an
+# orientation estimate), please set element 0 of the associated covariance matrix to -1
+# If you are interpreting this message, please check for a value of -1 in the first element of each
+# covariance matrix, and disregard the associated estimate.
+
+std_msgs/Header header
+	builtin_interfaces/Time stamp
+		int32 sec
+		uint32 nanosec
+	string frame_id
+
+geometry_msgs/Quaternion orientation
+	float64 x 0
+	float64 y 0
+	float64 z 0
+	float64 w 1
+float64[9] orientation_covariance # Row major about x, y, z axes
+
+geometry_msgs/Vector3 angular_velocity
+	float64 x
+	float64 y
+	float64 z
+float64[9] angular_velocity_covariance # Row major about x, y, z axes
+
+geometry_msgs/Vector3 linear_acceleration
+	float64 x
+	float64 y
+	float64 z
+float64[9] linear_acceleration_covariance # Row major x, y z
+arne@arne-G3-3500:~/workspacetdros$ ros2 interface show  std_srvs/srv/Trigger
+---
+bool success   # indicate successful run of triggered service
+string message # informational, e.g. for error messages
+```
+#### Question 3.
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.ensta-bretagne.fr/jacobsar/workspacetdros.git
-git branch -M main
-git push -uf origin main
+arne@arne-G3-3500:~/workspacetdros$ ros2 topic pub /cap std_msgs/msg/Float32 "data: 90.0"
+publisher: beginning loop
+publishing #1: std_msgs.msg.Float32(data=90.0)
+
+publishing #2: std_msgs.msg.Float32(data=90.0)
+
+publishing #3: std_msgs.msg.Float32(data=90.0)
+
+publishing #4: std_msgs.msg.Float32(data=90.0)
+
+publishing #5: std_msgs.msg.Float32(data=90.0)
+```
+#### Question 4.
+```
+arne@arne-G3-3500:~$ ros2 node list -a
+/_ros2cli_10936
+/_ros2cli_10958
+/_ros2cli_daemon_0_7aed7b0ec37e4812b963993dd2d7a6d5
+arne@arne-G3-3500:~$ ros2 node info /_ros2cli_10936 --include-hidden
+/_ros2cli_10936
+  Subscribers:
+
+  Publishers:
+    /cap: std_msgs/msg/Float32
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+  Service Servers:
+
+  Service Clients:
+
+  Action Servers:
+
+  Action Clients:
+
+arne@arne-G3-3500:~$ ros2 node info /_ros2cli_10958 --include-hidden
+/_ros2cli_10958
+  Subscribers:
+    /cap: std_msgs/msg/Float32
+  Publishers:
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+  Service Servers:
+
+  Service Clients:
+
+  Action Servers:
+
+  Action Clients:
+
+```
+#### Question 5.
+
+Les noms des nodes :
+Publisher :
+```
+/_ros2cli_10936
+```
+Suscriber :
+```
+/_ros2cli_10958
 ```
 
-## Integrate with your tools
+#### Question 6.
+```
+workspaceTdRos/
+    ├── build
+    │   └── COLCON_IGNORE
+    ├── install
+    │   └── ...
+    ├── log
+    │   └── ...
+```
+#### Question 7.
 
-- [ ] [Set up project integrations](https://gitlab.ensta-bretagne.fr/jacobsar/workspacetdros/-/settings/integrations)
+```
+arne@arne-G3-3500:~$ echo "source ~/workspaceTdRos/install/setup.bash" >> ~/.bashrc
+arne@arne-G3-3500:~$ cat /home/arne/.bashrc
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
 
-## Collaborate with your team
+...
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+source /opt/ros/humble/setup.bash
+export ROS_LOCALHOST_ONLY=1
+source ~/workspaceTdRos/install/setup.bash
+```
 
-## Test and Deploy
+#### Question 8.
+```
+workspaceTdRos/src/td1
+    ├── CMakeLists.txt
+    ├── include
+    │   └── td1
+    │       └── ...
+    ├── package.xml
+    ├── src
+    │   └── ...
+```
+Il manque donc les fichiers msg et srv.
 
-Use the built-in continuous integration in GitLab.
+#### Question 9.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Terminal 1 :
+```
+arne@arne-G3-3500:~$ ros2 topic list
+/parameter_events
+/rosout
+arne@arne-G3-3500:~$ ros2 topic list
+/parameter_events
+/rosout
+/topic
+arne@arne-G3-3500:~$ ros2 topic echo /topic
+data: Hello, world! 48
+---
+data: Hello, world! 49
+---
+data: Hello, world! 50
+---
+data: Hello, world! 51
+---
+data: Hello, world! 52
+---
+data: Hello, world! 53
+```
 
-***
+Terminal 2 :
+```
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 run td1 nodeA
+[INFO] [1705514248.261591230] [nodeA]: Publishing: 'Hello, world! 0'
+[INFO] [1705514248.761679253] [nodeA]: Publishing: 'Hello, world! 1'
+[INFO] [1705514249.261602256] [nodeA]: Publishing: 'Hello, world! 2'
+[INFO] [1705514249.761627401] [nodeA]: Publishing: 'Hello, world! 3'
+[INFO] [1705514250.261648498] [nodeA]: Publishing: 'Hello, world! 4'
+[INFO] [1705514250.761634979] [nodeA]: Publishing: 'Hello, world! 5'
+```
 
-# Editing this README
+#### Question 10.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 run td1 nodeA
+[INFO] [1705662962.244105909] [nodeA]: Publishing: 'Sinusoid value: -0.929548'
+[INFO] [1705662962.744038158] [nodeA]: Publishing: 'Sinusoid value: -0.992521'
+[INFO] [1705662963.244044183] [nodeA]: Publishing: 'Sinusoid value: -0.812490'
+[INFO] [1705662963.744040563] [nodeA]: Publishing: 'Sinusoid value: -0.433538'
+[INFO] [1705662964.244035813] [nodeA]: Publishing: 'Sinusoid value: 0.051558'
+[INFO] [1705662964.744040213] [nodeA]: Publishing: 'Sinusoid value: 0.524038'
+[INFO] [1705662965.244042971] [nodeA]: Publishing: 'Sinusoid value: 0.868212'
+[INFO] [1705662965.744038109] [nodeA]: Publishing: 'Sinusoid value: 0.999815'
+[INFO] [1705662966.244037512] [nodeA]: Publishing: 'Sinusoid value: 0.886632'
+[INFO] [1705662966.744041307] [nodeA]: Publishing: 'Sinusoid value: 0.556366'
+[INFO] [1705662967.244048516] [nodeA]: Publishing: 'Sinusoid value: 0.089878'
+[INFO] [1705662967.744041487] [nodeA]: Publishing: 'Sinusoid value: -0.398603'
+[INFO] [1705662968.243986856] [nodeA]: Publishing: 'Sinusoid value: -0.789467'
+[INFO] [1705662968.744042332] [nodeA]: Publishing: 'Sinusoid value: -0.987099'
+[INFO] [1705662969.243961153] [nodeA]: Publishing: 'Sinusoid value: -0.943049'
+[INFO] [1705662969.744038237] [nodeA]: Publishing: 'Sinusoid value: -0.668063'
+[INFO] [1705662970.244040975] [nodeA]: Publishing: 'Sinusoid value: -0.229534'
+^C[INFO] [1705662970.416065145] [rclcpp]: signal_handler(signum=2)
+```
+#### Question 11.
 
-## Suggestions for a good README
+Terminal 1 :
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+```
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 topic pub /cap std_msgs/msg/Float32 "data: 90.0"
+publisher: beginning loop
+publishing #1: std_msgs.msg.Float32(data=90.0)
 
-## Name
-Choose a self-explaining name for your project.
+publishing #2: std_msgs.msg.Float32(data=90.0)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+publishing #3: std_msgs.msg.Float32(data=90.0)
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+publishing #4: std_msgs.msg.Float32(data=90.0)
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+publishing #5: std_msgs.msg.Float32(data=90.0)
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+publishing #6: std_msgs.msg.Float32(data=90.0)
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+publishing #7: std_msgs.msg.Float32(data=90.0)
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+publishing #8: std_msgs.msg.Float32(data=90.0)
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+publishing #9: std_msgs.msg.Float32(data=90.0)
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Terminal 2 :
+```
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 run td1 nodeB
+[INFO] [1705665711.360855280] [minimal_subscriber]: Received boat heading: '90.000000'
+[INFO] [1705665712.360903022] [minimal_subscriber]: Received boat heading: '90.000000'
+[INFO] [1705665713.360851706] [minimal_subscriber]: Received boat heading: '90.000000'
+[INFO] [1705665714.360806769] [minimal_subscriber]: Received boat heading: '90.000000'
+[INFO] [1705665715.360891126] [minimal_subscriber]: Received boat heading: '90.000000'
+[INFO] [1705665716.360900701] [minimal_subscriber]: Received boat heading: '90.000000'
+[INFO] [1705665717.360867246] [minimal_subscriber]: Received boat heading: '90.000000'
+^C[INFO] [1705665717.883035506] [rclcpp]: signal_handler(signum=2)
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+#### Questions 12 et 13.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Non réussies.
