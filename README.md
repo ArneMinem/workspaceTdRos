@@ -314,6 +314,50 @@ arne@arne-G3-3500:~/workspaceTdRos$ ros2 run td1 nodeB
 ^C[INFO] [1705665717.883035506] [rclcpp]: signal_handler(signum=2)
 ```
 
-#### Questions 12 et 13.
+#### Questions 12.
 
-Non réussies.
+Voir code main_nodeA.cpp
+
+#### Question 13.
+
+Terminal 1 :
+```
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 run td1 nodeA
+[INFO] [1705748065.970632998] [nodeA]: Publishing: 'Sinusoid value: 0.734735'
+[INFO] [1705748066.470650623] [nodeA]: Publishing: 'Sinusoid value: 0.319496'
+[INFO] [1705748066.970613228] [nodeA]: Publishing: 'Sinusoid value: -0.173890'
+[INFO] [1705748074.944724543] [nodeA]: État du moteur : On
+[INFO] [1705748083.470612232] [nodeA]: Publishing: 'Sinusoid value: 0.823073'
+[INFO] [1705748083.970531903] [nodeA]: Publishing: 'Sinusoid value: 0.994590'
+[INFO] [1705748084.282870458] [nodeA]: État du moteur : On
+[INFO] [1705748084.470569118] [nodeA]: Publishing: 'Sinusoid value: 0.922624'
+[INFO] [1705748084.970592276] [nodeA]: Publishing: 'Sinusoid value: 0.624751'
+[INFO] [1705748085.470651160] [nodeA]: Publishing: 'Sinusoid value: 0.173866'
+[INFO] [1705748085.970611123] [nodeA]: Publishing: 'Sinusoid value: -0.319504'
+[INFO] [1705748086.470501458] [nodeA]: Publishing: 'Sinusoid value: -0.734622'
+[INFO] [1705748086.561074401] [nodeA]: État du moteur : On
+[INFO] [1705748086.970636719] [nodeA]: Publishing: 'Sinusoid value: -0.970001'
+[INFO] [1705748087.470645758] [nodeA]: Publishing: 'Sinusoid value: -0.967803'
+^C[INFO] [1705748093.702579267] [rclcpp]: signal_handler(signum=2)
+```
+
+Terminal 2 :
+```
+ros2 service call /status_boat std_srvs/srv/Trigger "{}"
+requester: making request: std_srvs.srv.Trigger_Request()
+
+response:
+std_srvs.srv.Trigger_Response(success=True, message='Nom du Bateau : Titanic, État du Moteur : On')
+
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 service call /status_boat std_srvs/srv/Trigger "{}"
+requester: making request: std_srvs.srv.Trigger_Request()
+
+response:
+std_srvs.srv.Trigger_Response(success=True, message='Nom du Bateau : Titanic, État du Moteur : On')
+
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 service call /status_boat std_srvs/srv/Trigger "{}"
+requester: making request: std_srvs.srv.Trigger_Request()
+
+response:
+std_srvs.srv.Trigger_Response(success=True, message='Nom du Bateau : Titanic, État du Moteur : On')
+```
