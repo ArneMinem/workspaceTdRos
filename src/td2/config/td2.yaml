@@ -1,0 +1,6 @@
+nodeSimu: # Fait référence au nom du node executé
+  ros__parameters: # Attention, il y a deux "_"
+    x: 0.0 # m
+    y: 0.0 # m
+    theta: 0.0 # rad
+    info: "position initiale du bateau"

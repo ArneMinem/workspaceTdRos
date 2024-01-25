@@ -69,6 +69,8 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
-    }
+        "variant": "cpp",
+        "dense": "cpp"
+    },
+    "cmake.sourceDirectory": "/home/arne/workspaceTdRos/src/td2"
 }
