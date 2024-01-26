@@ -321,4 +321,20 @@ Après avoir ajouté le marker on voit bien le bateau avancer en 3D:
 
 #### Question 14.
 
+En utilisant les lignes de commande suivantes :
+```
+ros2 run mouse_teleop mouse_teleop -r /mouse_vel:=/cmd
+```
+et
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard -r /teleop_vel:=/cmd
+```
+On peut contrôler le bateau avec la souris et le clavier.
+
+## 3 Contrôleur du bateau
+
+### 3.1 Loi de pilotage
+
+#### Question 15.
+
 ```
