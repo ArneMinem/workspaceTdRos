@@ -12,12 +12,13 @@ find_package(example_interfaces REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 
 add_executable(NodeSimu
   src/NodeSimu.cpp
   src/td2.cpp
 )
-ament_target_dependencies(NodeSimu rclcpp rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs)
+ament_target_dependencies(NodeSimu rclcpp rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs)
 target_link_libraries(NodeSimu "${cpp_typesupport_target}")
 target_include_directories(NodeSimu PUBLIC
 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

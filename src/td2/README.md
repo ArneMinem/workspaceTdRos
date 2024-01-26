@@ -311,3 +311,14 @@ Après avoir changé le Fixed Frame sur `carte` on voit bien le bateau avancer :
 
 ![rviz](./img/rviz.png)
 
+#### Question 13.
+
+Après avoir ajouté le marker on voit bien le bateau avancer en 3D:
+
+![rviz2](./img/rviz2.png)
+
+### 2.6 Installation de Packages additionnels
+
+#### Question 14.
+
+```

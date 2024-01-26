@@ -36,12 +36,14 @@ void NodeSimu::timer_callback() {
     message.pose.orientation = tf2::toMsg(q); // Converti le Quaternion en message (orientation et de type geomtry_msgs::msg::Quaternion)
 
     message.header.stamp = this->now();
-    message.header.frame_id = "carte";
+    message.header.frame_id = "map";
 
     // Affichage du message dans le terminal et publication
     RCLCPP_INFO(this->get_logger(), "Publishing (x, y, théta): %f %f %f", message.pose.position.x, message.pose.position.y, message.pose.orientation.z);
 
     publisher_->publish(message);
+
+    this->visualization();
 }
 
 void NodeSimu::init_interfaces() {
@@ -83,7 +85,7 @@ void NodeSimu::init_parameters() {
 void NodeSimu::visualization()
 {
     visualization_msgs::msg::Marker marker;
-    marker.header.frame_id = "carte";
+    marker.header.frame_id = "map";
     marker.header.stamp = this->now();
     marker.ns = "boat";
     marker.id = 0;
