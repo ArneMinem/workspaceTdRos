@@ -165,7 +165,7 @@ arne@arne-G3-3500:~/workspaceTdRos$ rqt
 ```
 Dedans on peut afficher les informations sur les nodes et les topics. On peut aussi afficher les graphes des topics et des nodes (voir la photo suivante):
 
-![rqt](./rqt.png)
+![rqt](./img/rqt.png)
 
 PS : j'ai rajouté ceci :
 ```
@@ -191,11 +191,11 @@ rqt
 ```
 Sur rqt avec `angular.z = 0` :
 
-![rqt2](./rqt2.png)
+![rqt2](./img/rqt2.png)
 
 Puis lorsque je modifie `angular.z = 0.5`:
 
-![rqt3](./rqt3.png)
+![rqt3](./img/rqt3.png)
 
 On voit bien que la vitesse angulaire augmente.
 
@@ -207,7 +207,7 @@ Or x[1] += dt * sin[x[2]] donc y n'est plus nulle à partir de la modification d
 
 Visualisation avec PlotJuggler :
 
-![plotjuggler](./plotjuggler.png)
+![plotjuggler](./img/PlotJuggler.png)
 
 ### 2.3 Roslaunch
 
@@ -267,4 +267,47 @@ void NodeSimu::init_parameters() {
 
 #### Question 10.
 
+Avec x_init = [1.0, 0.0, 0.0] et v = 0.0:
 ```
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 launch td2 td2_launch.py
+[INFO] [launch]: All log files can be found below /home/arne/.ros/log/2024-01-26-12-13-06-539728-arne-G3-3500-14292
+[INFO] [launch]: Default logging verbosity is set to INFO
+Lancement du nodeSimu
+[INFO] [NodeSimu-1]: process started with pid [14293]
+[NodeSimu-1] [INFO] [1706267586.749819422] [nodeSimu]: Publishing (x, y, théta): 1.000000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267586.849797651] [nodeSimu]: Publishing (x, y, théta): 1.000000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267586.949851138] [nodeSimu]: Publishing (x, y, théta): 1.000000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267587.049808174] [nodeSimu]: Publishing (x, y, théta): 1.000000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267587.149831181] [nodeSimu]: Publishing (x, y, théta): 1.000000 0.000000 0.000000
+```
+
+Avec x_init = [1.0, 0.0, 0.0] et v = 1.0:
+```
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 launch td2 td2_launch.py
+[INFO] [launch]: All log files can be found below /home/arne/.ros/log/2024-01-26-12-15-21-215486-arne-G3-3500-14520
+[INFO] [launch]: Default logging verbosity is set to INFO
+Lancement du nodeSimu
+[INFO] [NodeSimu-1]: process started with pid [14521]
+[NodeSimu-1] [INFO] [1706267721.429022195] [nodeSimu]: Publishing (x, y, théta): 1.100000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267721.528900685] [nodeSimu]: Publishing (x, y, théta): 1.200000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267721.628936391] [nodeSimu]: Publishing (x, y, théta): 1.300000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267721.728949563] [nodeSimu]: Publishing (x, y, théta): 1.400000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267721.829060543] [nodeSimu]: Publishing (x, y, théta): 1.500000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267721.929011916] [nodeSimu]: Publishing (x, y, théta): 1.600000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267722.029031237] [nodeSimu]: Publishing (x, y, théta): 1.700000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267722.129026065] [nodeSimu]: Publishing (x, y, théta): 1.800000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267722.229037416] [nodeSimu]: Publishing (x, y, théta): 1.900000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267722.329053046] [nodeSimu]: Publishing (x, y, théta): 2.000000 0.000000 0.000000
+[NodeSimu-1] [INFO] [1706267722.429023940] [nodeSimu]: Publishing (x, y, théta): 2.100000 0.000000 0.000000
+```
+
+### 2.5 Découverte de RVIZ
+
+#### Question 11 et 12.
+
+Au début rien ne s'affiche puisque le Fixed Frame est sur `map` et que mon topic est sur `carte`.
+
+Après avoir changé le Fixed Frame sur `carte` on voit bien le bateau avancer :
+
+![rviz](./img/rviz.png)
+
