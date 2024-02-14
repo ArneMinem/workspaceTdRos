@@ -1,6 +1,5 @@
 {
     "files.associations": {
-        "system_error": "cpp",
         "cctype": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",
@@ -44,6 +43,7 @@
         "random": "cpp",
         "ratio": "cpp",
         "string_view": "cpp",
+        "system_error": "cpp",
         "tuple": "cpp",
         "type_traits": "cpp",
         "utility": "cpp",
@@ -69,11 +69,6 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp",
-        "dense": "cpp",
-        "csignal": "cpp",
-        "codecvt": "cpp",
-        "future": "cpp"
-    },
-    "cmake.sourceDirectory": "/home/arne/workspaceTdRos/src/td2"
+        "variant": "cpp"
+    }
 }

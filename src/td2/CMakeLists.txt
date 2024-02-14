@@ -16,11 +16,31 @@ find_package(visualization_msgs REQUIRED)
 
 add_executable(NodeSimu
   src/NodeSimu.cpp
-  src/td2.cpp
+  src/main_NS.cpp
 )
 ament_target_dependencies(NodeSimu rclcpp rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs)
 target_link_libraries(NodeSimu "${cpp_typesupport_target}")
 target_include_directories(NodeSimu PUBLIC
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+$<INSTALL_INTERFACE:include>)
+
+add_executable(NodeControl
+  src/NodeControl.cpp
+  src/main_NC.cpp
+)
+ament_target_dependencies(NodeControl rclcpp rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs)
+target_link_libraries(NodeControl "${cpp_typesupport_target}")
+target_include_directories(NodeControl PUBLIC
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+$<INSTALL_INTERFACE:include>)
+
+add_executable(NodeCible
+  src/NodeCible.cpp
+  src/main_NCi.cpp
+)
+ament_target_dependencies(NodeCible rclcpp rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs)
+target_link_libraries(NodeCible "${cpp_typesupport_target}")
+target_include_directories(NodeCible PUBLIC
 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 $<INSTALL_INTERFACE:include>)
 
@@ -50,5 +70,11 @@ DESTINATION share/${PROJECT_NAME}/
 install(DIRECTORY meshes
 DESTINATION share/${PROJECT_NAME}/
 )
+
+install(TARGETS NodeControl
+DESTINATION lib/${PROJECT_NAME})
+
+install(TARGETS NodeCible
+DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

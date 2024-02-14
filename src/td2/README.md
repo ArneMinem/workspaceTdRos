@@ -337,4 +337,6 @@ On peut contrôler le bateau avec la souris et le clavier.
 
 #### Question 15.
 
-```
+En rajoutant un node `NodeControl` et `NodeCible` on peut contrôler le bateau pour qu'il aille vers une cible.
+
+![rviz2](./img/rviz2_q15.png)

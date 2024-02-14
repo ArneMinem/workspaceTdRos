@@ -1,6 +1,12 @@
-/nodeSimu: # Fait référence au nom du node executé
-  ros__parameters: # Attention, il y a deux "_"
-    init_pos:
-    - 1.0
-    - 0.0
-    - 0.0
+bat1:
+  nodeSimu: # Fait référence au nom du node executé
+    ros__parameters: # Attention, il y a deux "_"
+      init_pos:
+      - 1.0
+      - 0.0
+      - 0.0
+  nodeCible:
+    ros__parameters:
+      x_cible:
+      - 10.0
+      - 10.0

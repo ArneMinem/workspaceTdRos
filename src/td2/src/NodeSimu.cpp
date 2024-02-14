@@ -1,5 +1,6 @@
 #include "td2/NodeSimu.hpp"
 
+using namespace std::placeholders;
 
 /* Constructeur de votre node avec le nom du node "nodeSimu"
 */
@@ -48,7 +49,7 @@ void NodeSimu::timer_callback() {
 
 void NodeSimu::init_interfaces() {
     // Créer un publisher pour publier des messages
-    publisher_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("topic_simu", 10);
+    publisher_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("pos_bat", 10);
 
     // Créer un timer qui appelle la fonction timer_callback toutes les 100ms
     timer_ = this->create_wall_timer(loop_dt_, std::bind(&NodeSimu::timer_callback, this));
@@ -78,7 +79,7 @@ void NodeSimu::init_parameters() {
     std::vector<double> init_pos_param = this->get_parameter_or("init_pos", init_pos_vector);
     x_ << init_pos_param[0], init_pos_param[1], init_pos_param[2];
 
-    u1 = 0.5;
+    u1 = 0.0;
     v = 1.0;
 }
 
