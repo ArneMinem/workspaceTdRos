@@ -373,31 +373,32 @@ def generate_launch_description():
                 'config', # repertoire
                 'td2.yaml'
         )
-        nodeS = Node(
+        nodeS1 = Node(
                 package='td2', # nom du package
                 namespace='bat1',
                 executable='NodeSimu', # nom de l'executable
                 name='nodeSimu', # nom du node lors du lancement
                 parameters=[config]
         )
-        nodeC = Node(
+        nodeC1 = Node(
                 package='td2', # nom du package
                 namespace='bat1',
                 executable='NodeControl', # nom de l'executable
                 name='nodeControl', # nom du node lors du lancement
                 parameters=[config]
         )
-        nodeCi = Node(
+        nodeCi1 = Node(
                 package='td2', # nom du package
                 namespace='bat1',
                 executable='NodeCible', # nom de l'executable
                 name='nodeCible', # nom du node lors du lancement
                 parameters=[config]
         )
+
         return LaunchDescription([
-                nodeS,
-                nodeC,
-                nodeCi
+                nodeS1,
+                nodeC1,
+                nodeCi1,
         ])
 ```
 
@@ -416,3 +417,9 @@ bat1:
       - 10.0
       - 10.0
 ```
+
+![rviz2](./img/rqt_q17.png)
+
+#### Question 18.
+
+Voici le lien vers une vidéo de la simulation : https://youtu.be/Xerye8Xb8oQ

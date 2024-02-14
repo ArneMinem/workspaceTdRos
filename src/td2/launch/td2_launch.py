@@ -13,29 +13,82 @@ def generate_launch_description():
                 'config', # repertoire
                 'td2.yaml'
         )
-        nodeS = Node(
+        nodeS1 = Node(
                 package='td2', # nom du package
                 namespace='bat1',
                 executable='NodeSimu', # nom de l'executable
                 name='nodeSimu', # nom du node lors du lancement
                 parameters=[config]
         )
-        nodeC = Node(
+        nodeC1 = Node(
                 package='td2', # nom du package
                 namespace='bat1',
                 executable='NodeControl', # nom de l'executable
                 name='nodeControl', # nom du node lors du lancement
                 parameters=[config]
         )
-        nodeCi = Node(
+        nodeCi1 = Node(
                 package='td2', # nom du package
                 namespace='bat1',
                 executable='NodeCible', # nom de l'executable
                 name='nodeCible', # nom du node lors du lancement
                 parameters=[config]
         )
+
+        nodeS2 = Node(
+                package='td2', # nom du package
+                namespace='bat2',
+                executable='NodeSimu', # nom de l'executable
+                name='nodeSimu', # nom du node lors du lancement
+                parameters=[config]
+        )
+        nodeC2 = Node(
+                package='td2', # nom du package
+                namespace='bat2',
+                executable='NodeControl', # nom de l'executable
+                name='nodeControl', # nom du node lors du lancement
+                parameters=[config]
+        )
+        nodeCi2 = Node(
+                package='td2', # nom du package
+                namespace='bat2',
+                executable='NodeCible', # nom de l'executable
+                name='nodeCible', # nom du node lors du lancement
+                parameters=[config]
+        )
+
+        nodeS3 = Node(
+                package='td2', # nom du package
+                namespace='bat3',
+                executable='NodeSimu', # nom de l'executable
+                name='nodeSimu', # nom du node lors du lancement
+                parameters=[config]
+        )
+        nodeC3 = Node(
+                package='td2', # nom du package
+                namespace='bat3',
+                executable='NodeControl', # nom de l'executable
+                name='nodeControl', # nom du node lors du lancement
+                parameters=[config]
+        )
+        nodeCi3 = Node(
+                package='td2', # nom du package
+                namespace='bat3',
+                executable='NodeCible', # nom de l'executable
+                name='nodeCible', # nom du node lors du lancement
+                parameters=[config]
+        )
+
         return LaunchDescription([
-                nodeS,
-                nodeC,
-                nodeCi
+                nodeS1,
+                nodeC1,
+                nodeCi1,
+                
+                nodeS2,
+                nodeC2,
+                nodeCi2,
+
+                nodeS3,
+                nodeC3,
+                nodeCi3
         ])
