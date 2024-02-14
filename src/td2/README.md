@@ -340,3 +340,79 @@ On peut contrôler le bateau avec la souris et le clavier.
 En rajoutant un node `NodeControl` et `NodeCible` on peut contrôler le bateau pour qu'il aille vers une cible.
 
 ![rviz2](./img/rviz2_q15.png)
+
+### 3.2 Node Graph & namespaces
+
+#### Question 16.
+
+On remarque que :
+
+1. nodes -> ellipses
+2. topics -> rectangles
+3. flèches pointent depuis un publisher vers un subscriber
+4. couleurs : je suis daltonien donc je ne peux pas dire
+
+![rviz2](./img/rqt_q16.png)
+
+#### Question 17.
+
+Pour lancer le launch file :
+```
+import os
+
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+print("Lancement Q15")
+
+# Fonction appelé par ros2 launch pour avoir la liste des nodes à lancer
+def generate_launch_description():
+        config = os.path.join(
+                get_package_share_directory('td2'),
+                'config', # repertoire
+                'td2.yaml'
+        )
+        nodeS = Node(
+                package='td2', # nom du package
+                namespace='bat1',
+                executable='NodeSimu', # nom de l'executable
+                name='nodeSimu', # nom du node lors du lancement
+                parameters=[config]
+        )
+        nodeC = Node(
+                package='td2', # nom du package
+                namespace='bat1',
+                executable='NodeControl', # nom de l'executable
+                name='nodeControl', # nom du node lors du lancement
+                parameters=[config]
+        )
+        nodeCi = Node(
+                package='td2', # nom du package
+                namespace='bat1',
+                executable='NodeCible', # nom de l'executable
+                name='nodeCible', # nom du node lors du lancement
+                parameters=[config]
+        )
+        return LaunchDescription([
+                nodeS,
+                nodeC,
+                nodeCi
+        ])
+```
+
+Pour le yaml :
+```
+bat1:
+  nodeSimu: # Fait référence au nom du node executé
+    ros__parameters: # Attention, il y a deux "_"
+      init_pos:
+      - 1.0
+      - 0.0
+      - 0.0
+  nodeCible:
+    ros__parameters:
+      x_cible:
+      - 10.0
+      - 10.0
+```
