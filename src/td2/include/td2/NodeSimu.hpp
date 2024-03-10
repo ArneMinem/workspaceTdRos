@@ -20,6 +20,9 @@
 // Pour les markers
 #include "visualization_msgs/msg/marker.hpp"
 
+// Pour le broadcast des transformations
+#include "tf2_ros/transform_broadcaster.h"
+
 // Attention à bien inclure chaque type de message !
 
 using namespace std::chrono_literals;
@@ -50,7 +53,7 @@ private:
     double v;
     double dt = 0.1;
 
-    std::chrono::milliseconds loop_dt_ = 100ms;
+    std::chrono::milliseconds loop_dt_ = 40ms;
 
     /* Fonction de callback du timer
     */
@@ -64,10 +67,13 @@ private:
 
     void visualization();
 
+    void transform_broadcaster();
+
     rclcpp::TimerBase::SharedPtr timer_; // objet timer
     rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr publisher_; // objet publisher
     rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr twist_subscription_; // objet subscriber
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr publisher_marker_; // objet publisher pour afficher le bateau
+    std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;  // objet broadcaster pour un changement de repère
 };
 
 #endif

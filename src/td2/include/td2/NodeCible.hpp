@@ -44,14 +44,14 @@ private:
     void cmd_callback(const geometry_msgs::msg::Twist &cmd);
 
     std::chrono::milliseconds loop_dt_ = 40ms;  // 25Hz
-    rclcpp::TimerBase::SharedPtr timer_;  // objet timer
-    rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr publisher_;  // objet publisher pour la pose de la cible
-    rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr publisher_marker_;  // objet publisher pour afficher la cible
-    rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr subscription_;  // objet subscriber pour déplacer la cible
-    std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;  // objet broadcaster pour un changement de repère
+    rclcpp::TimerBase::SharedPtr timer_;  // object timer
+    rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr publisher_;  // object publisher for target's pose
+    rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr publisher_marker_;  // object publisher for target's visualisation
+    rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr subscription_;  // object subscriber to move the target
+    std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;  // object broadcaster to change the target's frame
 
-    Matrix<double, 2, 1> x_cible;
-    Matrix<double, 2, 1> dx_cible;
+    Matrix<double, 3, 1> x_cible;
+    Matrix<double, 3, 1> dx_cible;
     double dt = 0.04;
 };
 

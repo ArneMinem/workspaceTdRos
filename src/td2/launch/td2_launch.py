@@ -4,6 +4,9 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
+from launch import actions
+
+
 print("Lancement Q15")
 
 # Fonction appelé par ros2 launch pour avoir la liste des nodes à lancer
@@ -34,6 +37,13 @@ def generate_launch_description():
                 name='nodeCible', # nom du node lors du lancement
                 parameters=[config]
         )
+        nodeT1 = Node(
+                package='td2',  # nom du package
+                namespace='bat1',  # Namespace
+                executable='NodeTurret',  # nom de l'executable
+                name='nodeTurret',  # nom du node lors du lancement
+                parameters=[config]
+        )
 
         nodeS2 = Node(
                 package='td2', # nom du package
@@ -54,6 +64,13 @@ def generate_launch_description():
                 namespace='bat2',
                 executable='NodeCible', # nom de l'executable
                 name='nodeCible', # nom du node lors du lancement
+                parameters=[config]
+        )
+        nodeT2 = Node(
+                package='td2',  # nom du package
+                namespace='bat2',  # Namespace
+                executable='NodeTurret',  # nom de l'executable
+                name='nodeTurret',  # nom du node lors du lancement
                 parameters=[config]
         )
 
@@ -78,17 +95,29 @@ def generate_launch_description():
                 name='nodeCible', # nom du node lors du lancement
                 parameters=[config]
         )
+        nodeT3 = Node(
+                package='td2',  # nom du package
+                namespace='bat3',  # Namespace
+                executable='NodeTurret',  # nom de l'executable
+                name='nodeTurret',  # nom du node lors du lancement
+                parameters=[config]
+        )
 
         return LaunchDescription([
                 nodeS1,
                 nodeC1,
                 nodeCi1,
+                nodeT1,
                 
                 nodeS2,
                 nodeC2,
                 nodeCi2,
+                nodeT2,
 
                 nodeS3,
                 nodeC3,
-                nodeCi3
+                nodeCi3,
+                nodeT3,
+
+                actions.ExecuteProcess(cmd=['ros2', 'bag', 'record', '-a'],output='screen')
         ])

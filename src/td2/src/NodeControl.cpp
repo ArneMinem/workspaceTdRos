@@ -97,9 +97,7 @@ void NodeControl::pos_callback(const geometry_msgs::msg::PoseStamped &msg) {
     x_bat(0) = msg.pose.position.x;
     x_bat(1) = msg.pose.position.y;
 
-    tf2::Quaternion q(msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w);
-    // theta = tf2::getYaw(q);
-    theta = atan2(2.0*(q.w()*q.z() + q.x()*q.y()), 1.0 - 2.0*(q.y()*q.y() + q.z()*q.z()));
+    theta = tf2::getYaw(msg.pose.orientation);
 }
 
 void NodeControl::cible_callback(const geometry_msgs::msg::PoseStamped &msg) {

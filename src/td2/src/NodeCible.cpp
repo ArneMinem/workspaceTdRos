@@ -22,8 +22,8 @@ void NodeCible::init_parameters() {
     std::vector<double> x_cible_init = {0., 0.};
     this->declare_parameter<std::vector<double>>("x_cible", x_cible_init);
     std::vector<double> x_cible_param = this->get_parameter_or("x_cible", x_cible_init);
-    x_cible << x_cible_param[0], x_cible_param[1];
-    dx_cible << 0., 0.;
+    x_cible << x_cible_param[0], x_cible_param[1], 0.;
+    dx_cible << 0., 0., 0.;
 }
 
 void NodeCible::dyn() {
@@ -38,7 +38,7 @@ void NodeCible::pose_cible() {
     msg.pose.position.y = x_cible(1);
     msg.pose.position.z = 0;
     tf2::Quaternion q;
-    q.setRPY(0, 0, 0);
+    q.setRPY(0, 0, x_cible(2));
     msg.pose.orientation = tf2::toMsg(q);
     RCLCPP_INFO(this->get_logger(), "Publishing: '%f' '%f'", msg.pose.position.x, msg.pose.position.y);
     publisher_->publish(msg);
@@ -56,7 +56,7 @@ void NodeCible::visualisation() {
     marker.pose.position.y = x_cible(1);
     marker.pose.position.z = 0;
     tf2::Quaternion q;
-    q.setRPY(0, 0, 0);
+    q.setRPY(0, 0, x_cible(2));
     marker.pose.orientation = tf2::toMsg(q);
     marker.scale.x = 1.;
     marker.scale.y = 1.;
@@ -76,8 +76,12 @@ void NodeCible::transf_broad() {
     transform.header.frame_id = "map";
     transform.child_frame_id = namespace_name + "_cible";
 
+    tf2::Quaternion q;
+    q.setRPY(0, 0, x_cible(2));
+
     transform.transform.translation.x = x_cible(0);
     transform.transform.translation.y = x_cible(1);
+    transform.transform.rotation = tf2::toMsg(q);
 
     tf_broadcaster_->sendTransform(transform);
 }
@@ -92,4 +96,5 @@ void NodeCible::timer_callback() {
 void NodeCible::cmd_callback(const geometry_msgs::msg::Twist &cmd) {
     dx_cible(0) = cmd.linear.x;
     dx_cible(1) = cmd.linear.y;
+    dx_cible(2) = cmd.angular.z;
 }

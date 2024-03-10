@@ -13,12 +13,13 @@ find_package(tf2 REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
 
 add_executable(NodeSimu
   src/NodeSimu.cpp
   src/main_NS.cpp
 )
-ament_target_dependencies(NodeSimu rclcpp rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs)
+ament_target_dependencies(NodeSimu rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs tf2_ros)
 target_link_libraries(NodeSimu "${cpp_typesupport_target}")
 target_include_directories(NodeSimu PUBLIC
 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -28,7 +29,7 @@ add_executable(NodeControl
   src/NodeControl.cpp
   src/main_NC.cpp
 )
-ament_target_dependencies(NodeControl rclcpp rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs)
+ament_target_dependencies(NodeControl rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs)
 target_link_libraries(NodeControl "${cpp_typesupport_target}")
 target_include_directories(NodeControl PUBLIC
 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -38,9 +39,19 @@ add_executable(NodeCible
   src/NodeCible.cpp
   src/main_NCi.cpp
 )
-ament_target_dependencies(NodeCible rclcpp rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs)
+ament_target_dependencies(NodeCible rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs)
 target_link_libraries(NodeCible "${cpp_typesupport_target}")
 target_include_directories(NodeCible PUBLIC
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+$<INSTALL_INTERFACE:include>)
+
+add_executable(NodeTourelle
+  src/NodeTourelle.cpp
+  src/main_NT.cpp
+)
+ament_target_dependencies(NodeTourelle rclcpp example_interfaces tf2 tf2_geometry_msgs geometry_msgs visualization_msgs tf2_ros)
+target_link_libraries(NodeTourelle "${cpp_typesupport_target}")
+target_include_directories(NodeTourelle PUBLIC
 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 $<INSTALL_INTERFACE:include>)
 
@@ -75,6 +86,9 @@ install(TARGETS NodeControl
 DESTINATION lib/${PROJECT_NAME})
 
 install(TARGETS NodeCible
+DESTINATION lib/${PROJECT_NAME})
+
+install(TARGETS NodeTourelle
 DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

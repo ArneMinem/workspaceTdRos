@@ -44,6 +44,7 @@ void NodeSimu::timer_callback() {
 
     publisher_->publish(message);
 
+    this->transform_broadcaster();
     this->visualization();
 }
 
@@ -59,6 +60,8 @@ void NodeSimu::init_interfaces() {
 
     // Créer un publisher de type visualization_msgs/msg/Marker sur le topic "visuel", avec une liste d'attente de 10 messages maximum
     publisher_marker_ = this->create_publisher<visualization_msgs::msg::Marker>("visuel", 10);
+
+    tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
 }
 
 void NodeSimu::twist_callback(const geometry_msgs::msg::Twist &cmd) {
@@ -86,21 +89,21 @@ void NodeSimu::init_parameters() {
 void NodeSimu::visualization()
 {
     visualization_msgs::msg::Marker marker;
-    marker.header.frame_id = "map";
+    marker.header.frame_id = this->get_namespace();
     marker.header.stamp = this->now();
-    marker.ns = "boat";
+    marker.ns = this->get_namespace();
     marker.id = 0;
     marker.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
     marker.action = visualization_msgs::msg::Marker::ADD;
 
     // Position du marker
-    marker.pose.position.x = x_[0];
-    marker.pose.position.y = x_[1];
+    marker.pose.position.x = 0;
+    marker.pose.position.y = 0;
     marker.pose.position.z = 0;
 
     // Orientation du marker
     tf2::Quaternion q; 
-    q.setRPY(0, 0, x_[2]); 
+    q.setRPY(0, 0, 0); 
     marker.pose.orientation = tf2::toMsg(q);
 
     marker.scale.x = 1.0;
@@ -113,4 +116,21 @@ void NodeSimu::visualization()
     marker.mesh_resource = "package://td2/meshes/boat.dae";
 
     publisher_marker_->publish(marker);
+}
+
+void NodeSimu::transform_broadcaster()
+{
+    geometry_msgs::msg::TransformStamped t;
+
+    t.header.stamp = this->get_clock()->now();
+    t.header.frame_id = "map";
+    t.child_frame_id = this->get_namespace();
+    t.transform.translation.x = x_[0];
+    t.transform.translation.y = x_[1];
+    t.transform.translation.z = 0.0;
+    tf2::Quaternion q;
+    q.setRPY(0, 0, x_[2]);
+    t.transform.rotation = tf2::toMsg(q);
+
+    tf_broadcaster_->sendTransform(t);
 }

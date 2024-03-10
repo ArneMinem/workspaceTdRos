@@ -423,3 +423,224 @@ bat1:
 #### Question 18.
 
 Voici le lien vers une vidéo de la simulation : https://youtu.be/Xerye8Xb8oQ
+
+
+
+# TP3 ROS : Vers l’implémentation sur un robot réel
+
+## 1 Le système de rejeu
+
+#### Questions 1. et 2.
+
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 bag record -a
+[INFO] [1707923862.753157721] [rosbag2_recorder]: Press SPACE for pausing/resuming
+[INFO] [1707923862.755054661] [rosbag2_storage]: Opened database 'rosbag2_2024_02_14-16_17_42/rosbag2_2024_02_14-16_17_42_0.db3' for READ_WRITE.
+[INFO] [1707923862.756606975] [rosbag2_recorder]: Listening for topics...
+[INFO] [1707923862.756651775] [rosbag2_recorder]: Event publisher thread: Starting
+[INFO] [1707923862.757296824] [rosbag2_recorder]: Subscribed to topic '/rosout'
+[INFO] [1707923862.757678253] [rosbag2_recorder]: Subscribed to topic '/events/write_split'
+[INFO] [1707923862.757730857] [rosbag2_recorder]: Recording...
+[INFO] [1707923865.875960465] [rosbag2_recorder]: Subscribed to topic '/bat3/visuel'
+[INFO] [1707923865.877490278] [rosbag2_recorder]: Subscribed to topic '/tf'
+[INFO] [1707923865.879015227] [rosbag2_recorder]: Subscribed to topic '/parameter_events'
+[INFO] [1707923865.879842569] [rosbag2_recorder]: Subscribed to topic '/bat1/pos_bat'
+[INFO] [1707923865.880461386] [rosbag2_recorder]: Subscribed to topic '/bat3/cmd'
+[INFO] [1707923865.881102686] [rosbag2_recorder]: Subscribed to topic '/bat1/marker_cible'
+[INFO] [1707923865.881708694] [rosbag2_recorder]: Subscribed to topic '/bat1/pose_cible'
+[INFO] [1707923865.882333150] [rosbag2_recorder]: Subscribed to topic '/bat1/visuel'
+[INFO] [1707923865.883002182] [rosbag2_recorder]: Subscribed to topic '/bat2/marker_cible'
+[INFO] [1707923865.883637693] [rosbag2_recorder]: Subscribed to topic '/bat1/cmd'
+[INFO] [1707923865.884260829] [rosbag2_recorder]: Subscribed to topic '/bat2/pose_cible'
+[INFO] [1707923865.884861817] [rosbag2_recorder]: Subscribed to topic '/bat2/pos_bat'
+[INFO] [1707923865.885386295] [rosbag2_recorder]: Subscribed to topic '/bat2/visuel'
+[INFO] [1707923865.885884552] [rosbag2_recorder]: Subscribed to topic '/bat2/cmd'
+[INFO] [1707923865.886374313] [rosbag2_recorder]: Subscribed to topic '/bat3/pos_bat'
+[INFO] [1707923866.300563172] [rosbag2_recorder]: Subscribed to topic '/bat3/marker_cible'
+[INFO] [1707923866.303043591] [rosbag2_recorder]: Subscribed to topic '/bat3/pose_cible'
+[INFO] [1707923878.424282203] [rosbag2_cpp]: Writing remaining messages from cache to the bag. It may take a while
+[INFO] [1707923878.426074323] [rosbag2_recorder]: Event publisher thread: Exiting
+[INFO] [1707923878.426130752] [rosbag2_recorder]: Recording stopped
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 bag play rosbag2_2024_02_14-16_17_42_0.db3
+usage: ros2 bag play [-h] [-s {my_read_only_test_plugin,my_test_plugin,sqlite3}] [--read-ahead-queue-size READ_AHEAD_QUEUE_SIZE] [-r RATE] [--topics TOPICS [TOPICS ...]]
+                     [--qos-profile-overrides-path QOS_PROFILE_OVERRIDES_PATH] [-l] [--remap REMAP [REMAP ...]] [--storage-config-file STORAGE_CONFIG_FILE] [--clock [CLOCK]] [-d DELAY]
+                     [--disable-keyboard-controls] [-p] [--start-offset START_OFFSET] [--wait-for-all-acked TIMEOUT] [--disable-loan-message]
+                     bag_path
+ros2 bag play: error: argument bag_path: Bag path 'rosbag2_2024_02_14-16_17_42_0.db3' does not exist!
+arne@arne-G3-3500:~/workspaceTdRos$ ls
+build  install  log  rosbag2_2024_02_14-16_17_42  src
+arne@arne-G3-3500:~/workspaceTdRos$ cd rosbag2_2024_02_14-16_17_42/
+arne@arne-G3-3500:~/workspaceTdRos/rosbag2_2024_02_14-16_17_42$ ros2 bag play rosbag2_2024_02_14-16_17_42_0.db3
+
+closing.
+
+closing.
+[INFO] [1707924036.566830671] [rosbag2_storage]: Opened database 'rosbag2_2024_02_14-16_17_42_0.db3' for READ_ONLY.
+[INFO] [1707924036.584110843] [rosbag2_player]: Set rate to 1
+[INFO] [1707924036.592515440] [rosbag2_player]: Adding keyboard callbacks.
+[INFO] [1707924036.592541501] [rosbag2_player]: Press SPACE for Pause/Resume
+[INFO] [1707924036.592551879] [rosbag2_player]: Press CURSOR_RIGHT for Play Next Message
+[INFO] [1707924036.592559985] [rosbag2_player]: Press CURSOR_UP for Increase Rate 10%
+[INFO] [1707924036.592567272] [rosbag2_player]: Press CURSOR_DOWN for Decrease Rate 10%
+
+closing.
+
+closing.
+[INFO] [1707924036.592933450] [rosbag2_storage]: Opened database 'rosbag2_2024_02_14-16_17_42_0.db3' for READ_ONLY.
+arne@arne-G3-3500:~/workspaceTdRos/rosbag2_2024_02_14-16_17_42$ ros2 bag play rosbag2_2024_02_14-16_17_42_0.db3
+
+closing.
+
+closing.
+[INFO] [1707924093.313164670] [rosbag2_storage]: Opened database 'rosbag2_2024_02_14-16_17_42_0.db3' for READ_ONLY.
+[INFO] [1707924093.324255060] [rosbag2_player]: Set rate to 1
+[INFO] [1707924093.332832339] [rosbag2_player]: Adding keyboard callbacks.
+[INFO] [1707924093.332862482] [rosbag2_player]: Press SPACE for Pause/Resume
+[INFO] [1707924093.332871877] [rosbag2_player]: Press CURSOR_RIGHT for Play Next Message
+[INFO] [1707924093.332879893] [rosbag2_player]: Press CURSOR_UP for Increase Rate 10%
+[INFO] [1707924093.332888378] [rosbag2_player]: Press CURSOR_DOWN for Decrease Rate 10%
+
+closing.
+
+closing.
+[INFO] [1707924093.333264562] [rosbag2_storage]: Opened database 'rosbag2_2024_02_14-16_17_42_0.db3' for READ_ONLY.
+arne@arne-G3-3500:~/workspaceTdRos/rosbag2_2024_02_14-16_17_42$ ros2 bag play rosbag2_2024_02_14-16_17_42_0.db3
+
+closing.
+
+closing.
+[INFO] [1707924115.953354349] [rosbag2_storage]: Opened database 'rosbag2_2024_02_14-16_17_42_0.db3' for READ_ONLY.
+[INFO] [1707924115.964400735] [rosbag2_player]: Set rate to 1
+[INFO] [1707924115.973240840] [rosbag2_player]: Adding keyboard callbacks.
+[INFO] [1707924115.973273314] [rosbag2_player]: Press SPACE for Pause/Resume
+[INFO] [1707924115.973286310] [rosbag2_player]: Press CURSOR_RIGHT for Play Next Message
+[INFO] [1707924115.973297388] [rosbag2_player]: Press CURSOR_UP for Increase Rate 10%
+[INFO] [1707924115.973307544] [rosbag2_player]: Press CURSOR_DOWN for Decrease Rate 10%
+
+closing.
+
+closing.
+[INFO] [1707924115.973674049] [rosbag2_storage]: Opened database 'rosbag2_2024_02_14-16_17_42_0.db3' for READ_ONLY.
+arne@arne-G3-3500:~/workspaceTdRos/rosbag2_2024_02_14-16_17_42$ cd .
+arne@arne-G3-3500:~/workspaceTdRos/rosbag2_2024_02_14-16_17_42$ cd ..
+arne@arne-G3-3500:~/workspaceTdRos$ ros2 bag info rosbag2_2024_02_14-16_17_42/
+
+Files:             rosbag2_2024_02_14-16_17_42_0.db3
+Bag size:          1.6 MiB
+Storage id:        sqlite3
+Duration:          15.663s
+Start:             Feb 14 2024 16:17:42.757 (1707923862.757)
+End:               Feb 14 2024 16:17:58.421 (1707923878.421)
+Messages:          9043
+Topic information: Topic: /bat3/pose_cible | Type: geometry_msgs/msg/PoseStamped | Count: 303 | Serialization Format: cdr
+                   Topic: /bat3/marker_cible | Type: visualization_msgs/msg/Marker | Count: 303 | Serialization Format: cdr
+                   Topic: /bat3/pos_bat | Type: geometry_msgs/msg/PoseStamped | Count: 126 | Serialization Format: cdr
+                   Topic: /bat2/cmd | Type: geometry_msgs/msg/Twist | Count: 313 | Serialization Format: cdr
+                   Topic: /bat2/visuel | Type: visualization_msgs/msg/Marker | Count: 126 | Serialization Format: cdr
+                   Topic: /events/write_split | Type: rosbag2_interfaces/msg/WriteSplitEvent | Count: 0 | Serialization Format: cdr
+                   Topic: /bat1/visuel | Type: visualization_msgs/msg/Marker | Count: 126 | Serialization Format: cdr
+                   Topic: /bat3/visuel | Type: visualization_msgs/msg/Marker | Count: 126 | Serialization Format: cdr
+                   Topic: /tf | Type: tf2_msgs/msg/TFMessage | Count: 931 | Serialization Format: cdr
+                   Topic: /parameter_events | Type: rcl_interfaces/msg/ParameterEvent | Count: 0 | Serialization Format: cdr
+                   Topic: /bat1/pos_bat | Type: geometry_msgs/msg/PoseStamped | Count: 126 | Serialization Format: cdr
+                   Topic: /rosout | Type: rcl_interfaces/msg/Log | Count: 4554 | Serialization Format: cdr
+                   Topic: /bat3/cmd | Type: geometry_msgs/msg/Twist | Count: 314 | Serialization Format: cdr
+                   Topic: /bat1/marker_cible | Type: visualization_msgs/msg/Marker | Count: 314 | Serialization Format: cdr
+                   Topic: /bat1/pose_cible | Type: geometry_msgs/msg/PoseStamped | Count: 314 | Serialization Format: cdr
+                   Topic: /bat2/marker_cible | Type: visualization_msgs/msg/Marker | Count: 314 | Serialization Format: cdr
+                   Topic: /bat2/pos_bat | Type: geometry_msgs/msg/PoseStamped | Count: 126 | Serialization Format: cdr
+                   Topic: /bat1/cmd | Type: geometry_msgs/msg/Twist | Count: 313 | Serialization Format: cdr
+                   Topic: /bat2/pose_cible | Type: geometry_msgs/msg/PoseStamped | Count: 314 | Serialization Format: cdr
+
+#### Question 3.
+
+On regarde un fichier bag plus vaste grâce à PlotJuggler. L'on remarque alors bien que les bateaux atteignent leurs cibles et tournent autour.
+
+![plotjuggler_q3](./img/PlotJuggler_td3q3.png)
+
+Ici, le bateau 1 va bien en (10, 10) atteindre sa cible puis avec les sinusoides il va tourner autour.
+
+#### Question 4.
+
+Pour afficher en python la trajectoire XY du bateau 1 on peut utiliser le code suivant :
+```
+x_values = []
+y_values = []
+
+## Get the messages
+while reader.has_next():
+    try:
+        (topic, data, t) = reader.read_next()
+
+        try:
+            msg_type = get_message(type_map[topic])
+            msg = deserialize_message(data, msg_type)
+
+            msg = str(msg)
+
+            # Use regular expressions to extract the x, y, z coordinates
+            positions = re.findall(r'Point\(x=(.*?), y=(.*?), z=(.*?)\)', msg)
+
+            # Convert the extracted coordinates to a list of lists
+            positions_array = np.array([[float(x), float(y), float(z)] for x, y, z in positions])
+            positions_array = positions_array[0]
+
+            x_values.append(positions_array[0])
+            y_values.append(positions_array[1])
+
+            print('x = ', positions_array[0], 'y = ', positions_array[1])
+
+        except Exception as e:
+            print("Oops!  deserialization error ", e)
+            print(topic, data, t, msg_type)
+            pass
+
+    except Exception as e:
+        print("Oops!  read_next error ", e)
+        pass
+
+plt.plot(x_values, y_values)
+plt.show()
+```
+
+Cela donne le graphe suivant :
+
+![trajectoire_XY](./img/Trajectoire_XY.png)
+
+## 2 Les tf
+
+#### Question 5.
+
+Ici, on a un tf entre chaque bateau et la "map" (le monde).
+
+Ainsi, on remarque en plus des bateaux sur rviz2 des lignes vers leurs positions initiales.
+
+![rviz2_q5](./img/rviz2_q5.png)
+
+#### Question 6
+
+Voici le TF Tree :
+
+![tf_graph](./img/rqt_q6.png)
+
+Et voici la preuve que la position du bateau est bien dans le repère du bateau :
+
+![tf_bat1](./img/rqt_q2bis.png)
+
+#### Question 7.
+
+J'ai mis la tourelle à 3.5m car cela me paraissait rendre mieux sur le bateau sur rviz2.
+
+![rviz2_q7](./img/rviz2_q7.png)
+
+#### Question 8.
+
+Voici le TF Tree :
+
+![tf_graph_q8](./img/rqt_q8.png)
+
+#### Question 9.
+
+Je peux bien suivre ce qui se passe en point de vue posé sur le bateau.
+
+#### Question 10.
+
