@@ -642,5 +642,9 @@ Voici le TF Tree :
 
 Je peux bien suivre ce qui se passe en point de vue posé sur le bateau.
 
-#### Question 10.
+#### Question 10 et 11.
+
+Je n'ai pas réussi à faire ces deux dernieres questions.
+
+Je ne trouve pas l'erreur dans mon code mais la tourelle ne pointe pas vers la cible lorsque le bateau tourne autour.
 
