@@ -432,6 +432,7 @@ Voici le lien vers une vidéo de la simulation : https://youtu.be/Xerye8Xb8oQ
 
 #### Questions 1. et 2.
 
+```
 arne@arne-G3-3500:~/workspaceTdRos$ ros2 bag record -a
 [INFO] [1707923862.753157721] [rosbag2_recorder]: Press SPACE for pausing/resuming
 [INFO] [1707923862.755054661] [rosbag2_storage]: Opened database 'rosbag2_2024_02_14-16_17_42/rosbag2_2024_02_14-16_17_42_0.db3' for READ_WRITE.
@@ -550,6 +551,8 @@ Topic information: Topic: /bat3/pose_cible | Type: geometry_msgs/msg/PoseStamped
                    Topic: /bat2/pos_bat | Type: geometry_msgs/msg/PoseStamped | Count: 126 | Serialization Format: cdr
                    Topic: /bat1/cmd | Type: geometry_msgs/msg/Twist | Count: 313 | Serialization Format: cdr
                    Topic: /bat2/pose_cible | Type: geometry_msgs/msg/PoseStamped | Count: 314 | Serialization Format: cdr
+
+```
 
 #### Question 3.
 
